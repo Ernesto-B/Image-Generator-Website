@@ -4,7 +4,7 @@ body {
   color: white;
   font-family: 'Poppins', sans-serif;
   margin-top: -20px;
-
+  overflow: hidden;
 }
 
 main {
@@ -16,6 +16,8 @@ h1 {
   font-family: 'Times New Roman';
   font-weight: 400;
   font-size: 5rem;
+  margin-bottom: 1%;
+  margin-top: 20px;
 }
 
 #result {
