@@ -31,22 +31,28 @@ app.use(express.json());
 
 // Creating endpoint. Here, POST is best option since we are creating new piece of data
 app.post('/dream', async (req, res) => {
-    
-    // Access the prompt (description of image user wants to generate)
-    const prompt = req.body.prompt;
+    try{
+        // Access the prompt (description of image user wants to generate)
+        const prompt = req.body.prompt;
 
-    // Pass on that data to the openAI API by calling the createImage method and passing the prompt as an argument
-    const aiResponse = await openai.createImage({
-        prompt,
-        n: 1,
-        size: '1024x1024',
-    });
+        // Pass on that data to the openAI API by calling the createImage method and passing the prompt as an argument
+        const aiResponse = await openai.createImage({
+            prompt,
+            n: 1,
+            size: '1024x1024',
+        });
 
-    // Response object from the API that contains the image URL
-    const image = aiResponse.data.data[0].url;
+        // Response object from the API that contains the image URL
+        const image = aiResponse.data.data[0].url;
 
-    // Now we want to send it back to the client as a response (as JSON format)
-    res.send({ image });
+        // Now we want to send it back to the client as a response (as JSON format)
+        res.send({ image });
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send(error?.response.data.error.message || 'Something went wrong');
+
+    }
 });
 
 // Starting the server. Start by running `node server.js` in terminal
